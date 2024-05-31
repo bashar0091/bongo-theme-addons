@@ -33,6 +33,7 @@ jQuery(document).ready(function(){
 
         var get_this = $(this);
         var formData = get_this.serialize();
+        get_this.find('.spinner').addClass('is_active');
         $.ajax({
             type: 'POST',
             url: ecomAjax.ajaxurl,
@@ -41,8 +42,9 @@ jQuery(document).ready(function(){
                 form_data: formData,
             },
             success: function (response) {
-                // Handle success response, e.g., display success message
-                console.log(response);
+                get_this.find('.spinner').removeClass('is_active');
+                $('.sucessfull_msg').html(`<h2 style="font-size: 20px; text-align: center;">Order Place Successfully, We will contact you soon</h2>
+                `);
             },
             error: function (error) {
                 console.error('Error occurred:', error);

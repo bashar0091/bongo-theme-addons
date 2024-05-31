@@ -76,7 +76,7 @@ class Theme_Fixed_Checkout_Widget extends \Elementor\Widget_Base {
         <section class="container">
             <div class="max-w-[1000px] mx-auto">
                 <form action="" method="post" class="fixed_checkout_submit">
-                    <div class="grid xl:grid-cols-2 gap-[30px] p-[15px] xl:p-[40px] bg-[#fafafa]">
+                    <div class="sucessfull_msg grid xl:grid-cols-2 gap-[30px] p-[15px] xl:p-[40px] bg-[#fafafa]">
                         <div>
                             <h2 class="text-[20px] font-[600] mb-[20px]">Billing details</h2>
 
@@ -171,7 +171,10 @@ class Theme_Fixed_Checkout_Widget extends \Elementor\Widget_Base {
 
                                 <p class="my-[20px]">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
 
-                                <button type="submit" class="bg-[#1D1D1D] text-[#fff] px-[15px] py-[8px]">Place Order  ৳ <?= $total_price;?></button>
+                                <div class="relative inline-block">
+                                    <button type="submit" class="bg-[#1D1D1D] text-[#fff] px-[15px] py-[8px]">Place Order  ৳ <?= $total_price;?></button>
+                                    <span class="spinner" style="left: calc(100% + 10px);"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
