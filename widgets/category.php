@@ -40,13 +40,13 @@ class Theme_Category_Widget extends \Elementor\Widget_Base {
         $options = [];
         if (!is_wp_error($product_categories)) {
             foreach ($product_categories as $category) {
-                $options[$category->slug] = $category->name;
+                $options[$category->term_id] = $category->name;
             }
         }
         $repeater->add_control(
             'product_category',
             [
-                'label' => esc_html__('Select Category', 'textdomain'),
+                'label' => esc_html__('Select Category', 'core_field'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'label_block' => true,
                 'options' => $options,
@@ -86,20 +86,27 @@ class Theme_Category_Widget extends \Elementor\Widget_Base {
                                 $i++;
 
                                 if($i == 1) {
-                                    echo $category['product_category'];
+                                    $category_id = $category['product_category'];
+                                    $category = get_term($category_id, 'product_cat');
+                                    $category_link = get_category_link($category_id, 'product_cat');
+                                    $category_name = $category->name;
+
+                                    $category_img_id = get_term_meta($category_id,'thumbnail_id',true);
+                                    $category_img_url = wp_get_attachment_url($category_img_id);
+                                    ?>
+                                    <div class="collection-grid__item position-relative h-md-100">
+                                        <div class="background-img" style="background-image: url('<?= $category_img_url;?>');"></div>
+                                        <div class="content_abs content_bottom content_left content_bottom-md content_left-md">
+                                            <p class="text-uppercase mb-1">Hot List</p>
+                                            <h3 class="text-uppercase"><strong><?= $category_name?></strong> Collection</h3>
+                                            <a href="<?= $category_link;?>" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
+                                        </div>
+                                    </div>
+                                    <?php
                                 }
                             }
                         }
                         ?>
-                        <div class="collection-grid__item position-relative h-md-100">
-                            <div class="background-img" style="background-image: url('<?php echo get_template_directory_uri(); ?>/images/collection_grid_1.jpg');"></div>
-                            <div class="content_abs content_bottom content_left content_bottom-md content_left-md">
-                                <p class="text-uppercase mb-1">Hot List</p>
-                                <h3 class="text-uppercase"><strong>Women</strong> Collection</h3>
-                                <a href="#" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
-                            </div>
-                            <!-- /.content_abs content_bottom content_left content_bottom-md content_left-md -->
-                        </div>
                     </div>
                     <!-- /.col-md-6 -->
 
@@ -111,73 +118,91 @@ class Theme_Category_Widget extends \Elementor\Widget_Base {
                                 $i++;
 
                                 if($i == 2) {
-                                    echo $category['product_category'];
+                                    $category_id = $category['product_category'];
+                                    $category = get_term($category_id, 'product_cat');
+                                    $category_link = get_category_link($category_id, 'product_cat');
+                                    $category_name = $category->name;
+
+                                    $category_img_id = get_term_meta($category_id,'thumbnail_id',true);
+                                    $category_img_url = wp_get_attachment_url($category_img_id);
+                                    ?>
+                                    <div class="collection-grid__item position-relative flex-grow-1 mb-lg-4">   
+                                        <div class="background-img" style="background-image: url('<?= $category_img_url;?>');"></div>
+                                        <div class="content_abs content_bottom content_left content_bottom-md content_left-md">
+                                            <p class="text-uppercase mb-1">Hot List</p>
+                                            <h3 class="text-uppercase"><strong><?= $category_name?></strong> Collection</h3>
+                                            <a href="<?= $category_link;?>" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
+                                        </div>
+                                    </div>
+                                    <?php
                                 }
                             }
                         }
                         ?>
-                        <div class="collection-grid__item position-relative flex-grow-1 mb-lg-4">
-                            <div class="background-img" style="background-image: url('<?php echo get_template_directory_uri(); ?>/images/collection_grid_2.jpg');"></div>
-                            <div class="content_abs content_bottom content_left content_bottom-md content_left-md">
-                                <p class="text-uppercase mb-1">Hot List</p>
-                                <h3 class="text-uppercase"><strong>Men</strong> Collection</h3>
-                                <a href="#" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
-                            </div>
-                            <!-- /.content_abs content_bottom content_left content_bottom-md content_left-md -->
-                        </div>
+                        
                         <div class="position-relative flex-grow-1 mt-lg-1">
                             <div class="row h-md-100">
-                                <?php 
-                                $i = 0;
-                                if( $product_category_s ) {
-                                    foreach($product_category_s as $category ) {
-                                        $i++;
+                                <div class="col-md-6 h-md-100">
+                                    <?php 
+                                    $i = 0;
+                                    if( $product_category_s ) {
+                                        foreach($product_category_s as $category ) {
+                                            $i++;
 
-                                        if($i == 3) {
-                                            echo $category['product_category'];
+                                            if($i == 3) {
+                                                $category_id = $category['product_category'];
+                                                $category = get_term($category_id, 'product_cat');
+                                                $category_link = get_category_link($category_id, 'product_cat');
+                                                $category_name = $category->name;
+
+                                                $category_img_id = get_term_meta($category_id,'thumbnail_id',true);
+                                                $category_img_url = wp_get_attachment_url($category_img_id);
+                                                ?>
+                                                <div class="collection-grid__item h-md-100 position-relative">
+                                                    <div class="background-img" style="background-image: url('<?= $category_img_url;?>');"></div>
+                                                    <div class="content_abs content_bottom content_left content_bottom-md content_left-md">
+                                                        <p class="text-uppercase mb-1">Hot List</p>
+                                                        <h3 class="text-uppercase"><strong><?= $category_name?></strong> Collection</h3>
+                                                        <a href="<?= $category_link;?>" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
                                         }
                                     }
-                                }
-                                ?>
-                                <div class="col-md-6 h-md-100">
-                                    <div class="collection-grid__item h-md-100 position-relative">
-                                        <div class="background-img" style="background-image: url('<?php echo get_template_directory_uri(); ?>/images/collection_grid_3.jpg');"></div>
-                                        <div class="content_abs content_bottom content_left content_bottom-md content_left-md">
-                                            <p class="text-uppercase mb-1">Hot List</p>
-                                            <h3 class="text-uppercase"><strong>Kids</strong> Collection</h3>
-                                            <a href="#" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
-                                        </div>
-                                        <!-- /.content_abs content_bottom content_left content_bottom-md content_left-md -->
-                                    </div>
-                                    <!-- /.collection-grid__item -->
+                                    ?>
                                 </div>
 
-                                <?php 
-                                $i = 0;
-                                if( $product_category_s ) {
-                                    foreach($product_category_s as $category ) {
-                                        $i++;
+                                <div class="col-md-6 h-md-100">
+                                    <?php 
+                                    $i = 0;
+                                    if( $product_category_s ) {
+                                        foreach($product_category_s as $category ) {
+                                            $i++;
 
-                                        if($i == 4) {
-                                            echo $category['product_category'];
+                                            if($i == 4) {
+                                                $category_id = $category['product_category'];
+                                                $category = get_term($category_id, 'product_cat');
+                                                $category_link = get_category_link($category_id, 'product_cat');
+                                                $category_name = $category->name;
+                                                $category_des = $category->description;
+                                                ?>
+                                                <div class="collection-grid__item h-md-100 position-relative">
+                                                    <div class="background-img" style="background-color: #f5e6e0;"></div>
+                                                    <div class="content_abs content_bottom content_left content_bottom-md content_left-md">
+                                                        <h3 class="text-uppercase"><strong><?= $category_name?></strong> Cards</h3>
+                                                        <p class="mb-1">
+                                                            <?= $category_des;?>
+                                                        </p>
+                                                        <a href="<?= $category_link;?>" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
                                         }
                                     }
-                                }
-                                ?>
-                                <div class="col-md-6 h-md-100">
-                                    <div class="collection-grid__item h-md-100 position-relative">
-                                        <div class="background-img" style="background-color: #f5e6e0;"></div>
-                                        <div class="content_abs content_bottom content_left content_bottom-md content_left-md">
-                                            <h3 class="text-uppercase"><strong>E-Gift</strong> Cards</h3>
-                                            <p class="mb-1">
-                                                Surprise someone with the gift they<br />
-                                                really want.
-                                            </p>
-                                            <a href="#" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
-                                        </div>
-                                        <!-- /.content_abs content_bottom content_left content_bottom-md content_left-md -->
-                                    </div>
-                                    <!-- /.collection-grid__item -->
+                                    ?>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -189,6 +214,8 @@ class Theme_Category_Widget extends \Elementor\Widget_Base {
             <!-- /.container -->
         </section>
         <!-- /.collections-grid collections-grid_masonry -->
+
+        <div class="mb-4 pb-4 mb-xl-5 pb-xl-5"></div>
 
         <?php
 

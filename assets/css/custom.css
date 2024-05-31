@@ -1,0 +1,18 @@
+.spinner {
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    display: inline-block;
+    visibility: hidden;
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    margin: 4px 10px 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.spinner.is_active {
+    visibility: visible;
+    opacity: 1;
+}

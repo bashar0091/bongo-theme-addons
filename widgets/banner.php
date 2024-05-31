@@ -245,7 +245,7 @@ class Theme_Banner_Widget extends \Elementor\Widget_Base {
                                 $social_link = $icon['social_link'];
                                 ?>
                                 <li>
-                                    <a href="<?= $social_link;?>" class="footer__social-link d-block">
+                                    <a href="<?= $social_link;?>" class="footer__social-link d-flex justify-center">
                                         <?php \Elementor\Icons_Manager::render_icon( $icon['social_icon'], [ 'aria-hidden' => 'true' ] ); ?>
                                     </a>
                                 </li>
