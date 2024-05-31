@@ -75,7 +75,7 @@ class Theme_Fixed_Checkout_Widget extends \Elementor\Widget_Base {
         <script src="https://cdn.tailwindcss.com"></script>
         <section class="container">
             <div class="max-w-[1000px] mx-auto">
-                <form action="">
+                <form action="" method="post" class="fixed_checkout_submit">
                     <div class="grid xl:grid-cols-2 gap-[30px] p-[15px] xl:p-[40px] bg-[#fafafa]">
                         <div>
                             <h2 class="text-[20px] font-[600] mb-[20px]">Billing details</h2>
@@ -130,6 +130,7 @@ class Theme_Fixed_Checkout_Widget extends \Elementor\Widget_Base {
                                             ?>
                                             <tr>
                                                 <td class="p-[10px]">
+                                                    <input type="hidden" name="product_id[]" value="<?= $product_id;?>">
                                                     <div class="flex items-center gap-[10px]">
                                                         <img src="<?= $featured_image_url;?>" class="w-[45px] h-[45px] rounded-[4px] object-cover" alt="product_img">
                                                         <span><?= $product_title;?></span>
