@@ -137,31 +137,30 @@ class Theme_Product_Tab_Widget extends \Elementor\Widget_Base {
                             <div class="col-6 col-md-4 col-lg-3">
                                 <div class="product-card mb-3 mb-md-4 mb-xxl-5">
                                     <div class="pc__img-wrapper">
-                                    <a href="<?= get_the_permalink();?>">
-                                        <img loading="lazy" src="<?= get_the_post_thumbnail_url();?>" alt="product_img" class="pc__img" style="height:100%;">
-                                        <img loading="lazy" src="<?= $gallery_image_url;?>" alt="product_img" class="pc__img pc__img-second" style="height:100%;">
-                                    </a>
+                                        <a href="<?= get_the_permalink();?>">
+                                            <img loading="lazy" src="<?= get_the_post_thumbnail_url();?>" alt="product_img" class="pc__img" style="height:100%;">
+                                            <img loading="lazy" src="<?= $gallery_image_url;?>" alt="product_img" class="pc__img pc__img-second" style="height:100%;">
+                                        </a>
 
-                                    <form action="" method="post" class="add_cart_handler">
-                                        <input type="hidden" name="product_id" value="<?= $product_id;?>">
-                                        <input type="number" name="quantity" value="1">
-                                        <button class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium" title="Add To Cart">
-                                            <span class="cart_text">Add To Cart</span>
-                                            <span class="spinner"></span>
-                                        </button>
-                                    </form>
-                                    
+                                        <form action="" method="post" class="add_cart_handler">
+                                            <input type="hidden" name="product_id" value="<?= $product_id;?>">
+                                            <input type="number" name="quantity" value="1">
+                                            <button class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium" title="Add To Cart">
+                                                <span class="cart_text">Add To Cart</span>
+                                                <span class="spinner"></span>
+                                            </button>
+                                        </form>
                                     </div>
 
                                     <div class="pc__info position-relative">
-                                    <h6 class="pc__title"><a href="<?= get_the_permalink();?>"><?= get_the_title();   ?></a></h6>
-                                    <div class="product-card__price d-flex">
-                                        <span class="money price"><?= wc_price($sale_price);?></span>
-                                    </div>
+                                        <h6 class="pc__title"><a href="<?= get_the_permalink();?>"><?= get_the_title();   ?></a></h6>
+                                        <div class="product-card__price d-flex">
+                                            <span class="money price"><?= wc_price($sale_price);?></span>
+                                        </div>
 
-                                    <button class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist" title="Add To Wishlist">
-                                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_heart" /></svg>
-                                    </button>
+                                        <button class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist" title="Add To Wishlist">
+                                            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_heart" /></svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

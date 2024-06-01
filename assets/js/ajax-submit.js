@@ -27,6 +27,33 @@ jQuery(document).ready(function(){
     });
 
 
+    // single page add to cart buttom submit 
+    $('.single_add_to_cart').on('submit', function(e){
+        e.preventDefault();
+
+        var get_this = $(this);
+        var formData = get_this.serialize();
+
+        get_this.find('.spinner').addClass('is_active');
+
+        $.ajax({
+            type: 'POST',
+            url: ecomAjax.ajaxurl,
+            data: {
+                action: 'single_add_cart_handle',
+                form_data: formData,
+            },
+            success: function (response) {
+                get_this.find('.spinner').removeClass('is_active');
+                get_this.find('.btn').html(`<a href="${ecomAjax.cart_url}" class="d-block text-white">VIEW CART</a>`);
+            },
+            error: function (error) {
+                console.error('Error occurred:', error);
+            }
+        });
+    });
+
+
     // fixed checkout submit 
     $('.fixed_checkout_submit').on('submit', function(e){
         e.preventDefault();
