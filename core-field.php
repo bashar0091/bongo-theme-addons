@@ -87,3 +87,56 @@ add_action('wp_enqueue_scripts', 'etheme_enqueue_scripts');
  */
 
  require_once('ajax-handle.php');
+
+
+ /**
+ * 
+ * add new menu on woocommerce my account page 
+ * 
+ */
+function add_wishlist_endpoint( $vars ) {
+    $vars['wishlist'] = 'wishlist';
+    return $vars;
+}
+add_filter( 'woocommerce_get_query_vars', 'add_wishlist_endpoint', 0 );
+
+function add_wishlist_menu_item( $items ) {
+    $items['wishlist'] = __('Wishlist', 'core_field');
+    return $items;
+}
+add_filter( 'woocommerce_account_menu_items', 'add_wishlist_menu_item', 10, 1 );
+
+function add_wishlist_menu_before_logout( $items ) {
+    $logout_item = $items['customer-logout'];
+    unset( $items['customer-logout'] );
+    $items['wishlist'] = __('Wishlist', 'core_field');
+    $items['customer-logout'] = $logout_item;
+    return $items;
+}
+add_filter( 'woocommerce_account_menu_items', 'add_wishlist_menu_before_logout', 10, 1 );
+
+function wishlist_endpoint_content() {
+    
+	require('wishlist-product-card.php');
+
+}
+add_action( 'woocommerce_account_wishlist_endpoint', 'wishlist_endpoint_content' );
+
+
+ /**
+ * 
+ * delete wishlit from my account
+ * 
+ */
+add_action('template_redirect', 'delete_wishlist');
+
+function delete_wishlist() {
+    if (isset($_GET['wishlist_id'])) {
+        $wishlist_id = $_GET['wishlist_id'];
+
+        wp_delete_post($wishlist_id, true);
+
+        wp_redirect(home_url("/my-account/wishlist"));
+        exit;
+    }
+}
