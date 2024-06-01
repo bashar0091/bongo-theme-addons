@@ -158,9 +158,48 @@ class Theme_Product_Tab_Widget extends \Elementor\Widget_Base {
                                             <span class="money price"><?= wc_price($sale_price);?></span>
                                         </div>
 
-                                        <button class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist" title="Add To Wishlist">
-                                            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_heart" /></svg>
-                                        </button>
+                                        <div class="wishlist_wrapper">
+                                            <?php 
+                                            $user_id = '';
+                                            $wishlist_id = '';
+                                            $has_wishlisted = false;
+                                            if(is_user_logged_in()) {
+                                                $user_id = get_current_user_id();
+                                                $wishlist_args = array(
+                                                    'post_type' => 'wishlists',
+                                                    'posts_per_page' => -1,
+                                                    'author' => $user_id,
+                                                );
+                                                $wishlist_query = new WP_Query($wishlist_args);
+                                                if ($wishlist_query->have_posts()) {
+                                                    while ($wishlist_query->have_posts()) {
+                                                        $wishlist_query->the_post();
+                                                        $wishlisted_product_id = get_field('product_id');
+                                                        if($wishlisted_product_id == $product_id) {
+                                                            $has_wishlisted = true;
+                                                            $wishlist_id = get_the_id();
+                                                        }
+                                                    }
+                                                }
+                                                wp_reset_postdata();
+                                            }
+                                            ?>
+                                            <form action="" class="add_wishlist <?= $has_wishlisted ? 'd-none' : '' ?>">
+                                                <input type="hidden" name="w_product_id" value="<?= $product_id;?>">
+                                                <input type="hidden" name="user_id" value="<?= $user_id;?>">
+                                                <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0">
+                                                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_heart" /></svg>
+                                                </button>
+                                                <span class="spinner spinner2"></span>
+                                            </form>
+                                            <form action="" class="remove_wishlist <?= $has_wishlisted ? '' : 'd-none' ?>">
+                                                <input type="hidden" name="wishlist_id" value="<?= $wishlist_id;?>">
+                                                <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 active">
+                                                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_heart" /></svg>
+                                                </button>
+                                                <span class="spinner spinner2"></span>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -232,14 +271,53 @@ class Theme_Product_Tab_Widget extends \Elementor\Widget_Base {
                                             </div>
 
                                             <div class="pc__info position-relative">
-                                            <h6 class="pc__title"><a href="<?= get_the_permalink();?>"><?= get_the_title();   ?></a></h6>
-                                            <div class="product-card__price d-flex">
-                                                <span class="money price"><?= wc_price($sale_price);?></span>
-                                            </div>
+                                                <h6 class="pc__title"><a href="<?= get_the_permalink();?>"><?= get_the_title();   ?></a></h6>
+                                                <div class="product-card__price d-flex">
+                                                    <span class="money price"><?= wc_price($sale_price);?></span>
+                                                </div>
 
-                                            <button class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist" title="Add To Wishlist">
-                                                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_heart" /></svg>
-                                            </button>
+                                                <div class="wishlist_wrapper">
+                                                    <?php 
+                                                    $user_id = '';
+                                                    $wishlist_id = '';
+                                                    $has_wishlisted = false;
+                                                    if(is_user_logged_in()) {
+                                                        $user_id = get_current_user_id();
+                                                        $wishlist_args = array(
+                                                            'post_type' => 'wishlists',
+                                                            'posts_per_page' => -1,
+                                                            'author' => $user_id,
+                                                        );
+                                                        $wishlist_query = new WP_Query($wishlist_args);
+                                                        if ($wishlist_query->have_posts()) {
+                                                            while ($wishlist_query->have_posts()) {
+                                                                $wishlist_query->the_post();
+                                                                $wishlisted_product_id = get_field('product_id');
+                                                                if($wishlisted_product_id == $product_id) {
+                                                                    $has_wishlisted = true;
+                                                                    $wishlist_id = get_the_id();
+                                                                }
+                                                            }
+                                                        }
+                                                        wp_reset_postdata();
+                                                    }
+                                                    ?>
+                                                    <form action="" class="add_wishlist <?= $has_wishlisted ? 'd-none' : '' ?>">
+                                                        <input type="hidden" name="w_product_id" value="<?= $product_id;?>">
+                                                        <input type="hidden" name="user_id" value="<?= $user_id;?>">
+                                                        <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0">
+                                                            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_heart" /></svg>
+                                                        </button>
+                                                        <span class="spinner spinner2"></span>
+                                                    </form>
+                                                    <form action="" class="remove_wishlist <?= $has_wishlisted ? '' : 'd-none' ?>">
+                                                        <input type="hidden" name="wishlist_id" value="<?= $wishlist_id;?>">
+                                                        <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 active">
+                                                            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#icon_heart" /></svg>
+                                                        </button>
+                                                        <span class="spinner spinner2"></span>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

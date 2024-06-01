@@ -2,6 +2,59 @@
 
 /**
  * 
+ * add wishlist handler
+ * 
+ */
+
+ function add_wishlist_handle_callback() {
+    if (isset($_POST['form_data'])) {
+        parse_str($_POST['form_data'], $formFields);
+
+        $w_product_id = isset($formFields['w_product_id']) ? intval($formFields['w_product_id']) : 0;
+        $user_id = isset($formFields['user_id']) ? intval($formFields['user_id']) : 0;
+
+        $new_wishlist = array(
+            'post_title'    => "Wishlist Added for Product ID: $w_product_id and user ID: $user_id",
+            'post_status'   => 'publish',
+            'post_author'   => $user_id,
+            'post_type'     => 'wishlists',
+        );
+        $new_wishlist_id = wp_insert_post($new_wishlist);
+        if ($new_wishlist_id) {
+            update_post_meta($new_wishlist_id, 'product_id', $w_product_id);
+
+            $response = array(
+                'new_wishlist_id' => $new_wishlist_id,
+            );
+        }
+    }
+    wp_send_json($response);
+    wp_die();
+}
+add_action('wp_ajax_add_wishlist_handle', 'add_wishlist_handle_callback');
+add_action('wp_ajax_nopriv_add_wishlist_handle', 'add_wishlist_handle_callback');
+
+/**
+ * 
+ * remove wishlist handler
+ * 
+ */
+
+ function remove_wishlist_handle_callback() {
+    if (isset($_POST['form_data'])) {
+        parse_str($_POST['form_data'], $formFields);
+
+        $wishlist_id = isset($formFields['wishlist_id']) ? intval($formFields['wishlist_id']) : 0;
+
+        wp_delete_post($wishlist_id, true);
+    }
+    wp_die();
+}
+add_action('wp_ajax_remove_wishlist_handle', 'remove_wishlist_handle_callback');
+add_action('wp_ajax_nopriv_remove_wishlist_handle', 'remove_wishlist_handle_callback');
+
+/**
+ * 
  * add to cart handler
  * 
  */

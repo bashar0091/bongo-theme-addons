@@ -80,4 +80,64 @@ jQuery(document).ready(function(){
     });
       
 
+    // wishlist add 
+    $('.add_wishlist').on('submit', function(e){
+        e.preventDefault();
+
+        var get_this = $(this);
+
+        var is_user_id = get_this.find('input[name="user_id"]').val();
+
+        if(is_user_id > 0) {
+            var formData = get_this.serialize();
+            get_this.find('.spinner').addClass('is_active');
+            $.ajax({
+                type: 'POST',
+                url: ecomAjax.ajaxurl,
+                data: {
+                    action: 'add_wishlist_handle',
+                    form_data: formData,
+                },
+                success: function (response) {
+                    get_this.find('.spinner').removeClass('is_active');
+                    get_this.addClass('d-none');
+                    get_this.parent().find('.remove_wishlist').removeClass('d-none');
+                    get_this.parent().find('input[name="wishlist_id"]').val(response.new_wishlist_id);
+                },
+                error: function (error) {
+                    console.error('Error occurred:', error);
+                }
+            });
+        } else {
+            alert('Please login to Add Wishlist');
+        }
+        
+    });
+
+    // wishlist remove 
+    $('.remove_wishlist').on('submit', function(e){
+        e.preventDefault();
+        
+        var get_this = $(this);
+        var formData = get_this.serialize();
+        get_this.find('.spinner').addClass('is_active');
+        $.ajax({
+            type: 'POST',
+            url: ecomAjax.ajaxurl,
+            data: {
+                action: 'remove_wishlist_handle',
+                form_data: formData,
+            },
+            success: function (response) {
+                get_this.find('.spinner').removeClass('is_active');
+                get_this.addClass('d-none');
+                get_this.parent().find('.add_wishlist').removeClass('d-none');
+                get_this.find('input[name="wishlist_id"]').val('');
+            },
+            error: function (error) {
+                console.error('Error occurred:', error);
+            }
+        });
+    });
+
 });

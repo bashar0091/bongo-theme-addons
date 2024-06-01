@@ -16,3 +16,12 @@
     visibility: visible;
     opacity: 1;
 }
+.remove_wishlist button use {
+    color: #C32929 !important;
+}
+.spinner2 {
+    right: -10px !important;
+    left: inherit !important;
+    transform: inherit !important;
+    top: 20px !important;
+}
