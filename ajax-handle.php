@@ -6,6 +6,22 @@
  * 
  */
 
+//  function text_form_handle_callback() {
+//     ob_start();
+        
+//     $html = ob_get_clean();
+//     echo $html;
+//     wp_die();
+// }
+// add_action('wp_ajax_text_form_handle', 'text_form_handle_callback');
+// add_action('wp_ajax_nopriv_text_form_handle', 'text_form_handle_callback');
+
+/**
+ * 
+ * add wishlist handler
+ * 
+ */
+
  function add_wishlist_handle_callback() {
     if (isset($_POST['form_data'])) {
         parse_str($_POST['form_data'], $formFields);
