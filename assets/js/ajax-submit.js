@@ -150,6 +150,9 @@ jQuery(document).ready(function(){
         filter_data = get_this.val();
         filter_tax = get_this.parent().find('input[name="attr_tax"]').val();
 
+        $('#products-grid').css('opacity', '0.4');
+        $('.spinner3').addClass('is_active');
+
         $.ajax({
             type: 'POST',
             url: ecomAjax.ajaxurl,
@@ -159,6 +162,8 @@ jQuery(document).ready(function(){
                 filter_tax: filter_tax,
             },
             success: function (response) {
+                $('#products-grid').css('opacity', '1');
+                $('.spinner3').removeClass('is_active');
                 $('.filter_wrap').html(response);
                 initializeFunctions();
             },

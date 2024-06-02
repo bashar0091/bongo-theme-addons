@@ -16,6 +16,7 @@ $product_args = array(
 $product_query = new WP_Query($product_args);
 if ( $product_query->have_posts() ) {
 ?>
+<span class="spinner spinner3" style="z-index:999;"></span>
 <div class="products-grid row row-cols-2 row-cols-md-3" id="products-grid">
     <?php 
     while ( $product_query->have_posts() ) {
