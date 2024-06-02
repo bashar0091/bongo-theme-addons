@@ -6,15 +6,19 @@
  * 
  */
 
-//  function text_form_handle_callback() {
-//     ob_start();
-        
-//     $html = ob_get_clean();
-//     echo $html;
-//     wp_die();
-// }
-// add_action('wp_ajax_text_form_handle', 'text_form_handle_callback');
-// add_action('wp_ajax_nopriv_text_form_handle', 'text_form_handle_callback');
+ function filter_handle_callback() {
+    if(isset($_POST['filter_data'])) {
+        $filter_tax = $_POST['filter_tax'];
+        $filter_data = $_POST['filter_data'];
+        ob_start();
+            require('product-filter-template.php');
+        $html = ob_get_clean();
+        echo $html;
+    }
+    wp_die();
+}
+add_action('wp_ajax_filter_handle', 'filter_handle_callback');
+add_action('wp_ajax_nopriv_filter_handle', 'filter_handle_callback');
 
 /**
  * 

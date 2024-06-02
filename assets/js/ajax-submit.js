@@ -141,23 +141,31 @@ jQuery(document).ready(function(){
     });
 
     // filtering ajax submit
-    // $('.text_form').on('submit', function(e){
-    //     e.preventDefault();
+    $('.filter_click input[type="radio"]').on('change', function(e){
+        e.preventDefault();
+        $('.filter_click').find('span').removeClass('swatch_active active');
+        get_this = $(this);
+        get_this.parent().find('span').addClass('swatch_active active');
         
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: ecomAjax.ajaxurl,
-    //         data: {
-    //             action: 'text_form_handle',
-    //         },
-    //         success: function (response) {
-    //             $('.text_response').html(response);
-    //             initializeFunctions();
-    //         },
-    //         error: function (error) {
-    //             console.error('Error occurred:', error);
-    //         }
-    //     });
-    // });
+        filter_data = get_this.val();
+        filter_tax = get_this.parent().find('input[name="attr_tax"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: ecomAjax.ajaxurl,
+            data: {
+                action: 'filter_handle',
+                filter_data: filter_data,
+                filter_tax: filter_tax,
+            },
+            success: function (response) {
+                $('.filter_wrap').html(response);
+                initializeFunctions();
+            },
+            error: function (error) {
+                console.error('Error occurred:', error);
+            }
+        });
+    });
 
 });
