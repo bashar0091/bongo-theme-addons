@@ -131,14 +131,24 @@ class Theme_Product_Tab_Widget extends \Elementor\Widget_Base {
                                 $product = wc_get_product($product_id);
                                 $sale_price = $product->get_regular_price();
 
-                                $gallery_image_id = $product->get_gallery_image_ids()[0];
-                                $gallery_image_url = wp_get_attachment_url($gallery_image_id);
+                                $main_image = plugin_dir_url( __DIR__ ) . 'assets/img/woocommerce-placeholder.png';
+                                $gallery_image_id = $product->get_gallery_image_ids();
+                                if(!empty(get_the_post_thumbnail_url())){
+                                    $main_image = get_the_post_thumbnail_url();
+                                } else if (!empty($gallery_image_id)){
+                                    $main_image = wp_get_attachment_url($gallery_image_id[0]);
+                                }
+
+                                $gallery_image_url = $main_image;
+                                if(!empty($gallery_image_id)) {
+                                    $gallery_image_url = wp_get_attachment_url($gallery_image_id[0]);
+                                }
                             ?>
                             <div class="col-6 col-md-4 col-lg-3">
                                 <div class="product-card mb-3 mb-md-4 mb-xxl-5">
                                     <div class="pc__img-wrapper">
                                         <a href="<?= get_the_permalink();?>">
-                                            <img loading="lazy" src="<?= get_the_post_thumbnail_url();?>" alt="product_img" class="pc__img" style="height:100%;">
+                                            <img loading="lazy" src="<?= $main_image;?>" alt="product_img" class="pc__img" style="height:100%;">
                                             <img loading="lazy" src="<?= $gallery_image_url;?>" alt="product_img" class="pc__img pc__img-second" style="height:100%;">
                                         </a>
 
@@ -250,13 +260,26 @@ class Theme_Product_Tab_Widget extends \Elementor\Widget_Base {
                                         $product_id = get_the_id();
                                         $product = wc_get_product($product_id);
                                         $sale_price = $product->get_regular_price();
+
+                                        $main_image = plugin_dir_url( __DIR__ ) . 'assets/img/woocommerce-placeholder.png';
+                                        $gallery_image_id = $product->get_gallery_image_ids();
+                                        if(!empty(get_the_post_thumbnail_url())){
+                                            $main_image = get_the_post_thumbnail_url();
+                                        } else if (!empty($gallery_image_id)){
+                                            $main_image = wp_get_attachment_url($gallery_image_id[0]);
+                                        }
+
+                                        $gallery_image_url = $main_image;
+                                        if(!empty($gallery_image_id)) {
+                                            $gallery_image_url = wp_get_attachment_url($gallery_image_id[0]);
+                                        }
                                     ?>
                                     <div class="col-6 col-md-4 col-lg-3">
                                         <div class="product-card mb-3 mb-md-4 mb-xxl-5">
                                             <div class="pc__img-wrapper">
                                             <a href="<?= get_the_permalink();?>">
-                                                <img loading="lazy" src="<?= get_the_post_thumbnail_url();?>" alt="Cropped Faux leather Jacket" class="pc__img" style="height:100%;">
-                                                <img loading="lazy" src="<?= get_the_post_thumbnail_url();?>" alt="Cropped Faux leather Jacket" class="pc__img pc__img-second" style="height:100%;">
+                                                <img loading="lazy" src="<?= $main_image;?>" alt="product_img" class="pc__img" style="height:100%;">
+                                                <img loading="lazy" src="<?= $gallery_image_url;?>" alt="product_img" class="pc__img pc__img-second" style="height:100%;">
                                             </a>
 
                                             <form action="" method="post" class="add_cart_handler">

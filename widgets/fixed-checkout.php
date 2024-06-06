@@ -124,7 +124,11 @@ class Theme_Fixed_Checkout_Widget extends \Elementor\Widget_Base {
                                             $products = wc_get_product($product_id);
                                             $product_title = $products->get_title();
                                             $product_price = $products->get_price();
-                                            $featured_image_url = get_the_post_thumbnail_url($product_id, 'full');
+
+                                            $main_image = plugin_dir_url( __DIR__ ) . 'assets/img/woocommerce-placeholder.png';
+                                            if(!empty(get_the_post_thumbnail_url($product_id, 'full'))){
+                                                $main_image = get_the_post_thumbnail_url($product_id, 'full');
+                                            }
 
                                             $total_price += $product_price;
                                             ?>
@@ -132,7 +136,7 @@ class Theme_Fixed_Checkout_Widget extends \Elementor\Widget_Base {
                                                 <td class="p-[10px]">
                                                     <input type="hidden" name="product_id[]" value="<?= $product_id;?>">
                                                     <div class="flex items-center gap-[10px]">
-                                                        <img src="<?= $featured_image_url;?>" class="w-[45px] h-[45px] rounded-[4px] object-cover" alt="product_img">
+                                                        <img src="<?= $main_image;?>" class="w-[45px] h-[45px] rounded-[4px] object-cover" alt="product_img">
                                                         <span><?= $product_title;?></span>
                                                         <span>× 1</span>
                                                     </div>

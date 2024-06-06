@@ -185,15 +185,15 @@ class Theme_Category_Widget extends \Elementor\Widget_Base {
                                                 $category = get_term($category_id, 'product_cat');
                                                 $category_link = get_category_link($category_id, 'product_cat');
                                                 $category_name = $category->name;
-                                                $category_des = $category->description;
+
+                                                $category_img_id = get_term_meta($category_id,'thumbnail_id',true);
+                                                $category_img_url = wp_get_attachment_url($category_img_id);
                                                 ?>
                                                 <div class="collection-grid__item h-md-100 position-relative">
-                                                    <div class="background-img" style="background-color: #f5e6e0;"></div>
+                                                    <div class="background-img" style="background-image: url('<?= $category_img_url;?>');"></div>
                                                     <div class="content_abs content_bottom content_left content_bottom-md content_left-md">
-                                                        <h3 class="text-uppercase"><strong><?= $category_name?></strong> Cards</h3>
-                                                        <p class="mb-1">
-                                                            <?= $category_des;?>
-                                                        </p>
+                                                        <p class="text-uppercase mb-1">Hot List</p>
+                                                        <h3 class="text-uppercase"><strong><?= $category_name?></strong> Collection</h3>
                                                         <a href="<?= $category_link;?>" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
                                                     </div>
                                                 </div>
